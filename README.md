@@ -1,5 +1,7 @@
 # grunt-configure
 
+WARNING: this plugin is in alpha stage.
+
 > Load external configuration
 
 ## Getting Started
@@ -16,6 +18,11 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 ```js
 grunt.loadNpmTasks('grunt-configure');
 ```
+or (better), use `matchdep` plugin and add this line before `grunt.initConfig`:
+
+```
+require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+```
 
 ## The "configure" task
 
@@ -28,59 +35,48 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
+    bar: {
+      src: ['.env'] // load configuration from ini file if no extension provided
     },
+    foo: {
+      src: ['.env.ini'] // load configuration from ini file
+    },
+    baz: {
+    	src: ['.env.json'] // load configuration from json file
+    },
+    foobar: {
+    	src: ['.env.yaml'] // load configuration from yaml file
+    }
   },
 })
 ```
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+None.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+#### Target different environments
 
 ```js
 grunt.initConfig({
   configure: {
     options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    dev: {
+      src: ['.env.dev.json']
     },
+    prod: {
+    	src: ['.env.prod.json']
+    }
   },
 })
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+## TODO
 
-```js
-grunt.initConfig({
-  configure: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
+ * complete test suite
+ * add documentation
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
