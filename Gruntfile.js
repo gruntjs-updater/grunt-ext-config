@@ -1,6 +1,6 @@
 /*
- * grunt-configure
- * https://github.com/stephanebachelier/grunt-configure
+ * grunt-ext-config
+ * https://github.com/stephanebachelier/grunt-ext-config
  *
  * Copyright (c) 2013 stephanebachelier
  * Licensed under the MIT license.
